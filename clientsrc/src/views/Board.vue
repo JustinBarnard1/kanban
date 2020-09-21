@@ -1,6 +1,9 @@
 <template>
   <div class="board">
-    <h1 v-if="board.title">{{board.title}}</h1>
+    <div v-if="board.title">
+    <h1>{{board.title}}</h1>
+    <h4>{{board.description}}</h4>
+    </div>
     <h1 v-else>Loading...</h1>
   </div>
 </template>

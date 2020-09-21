@@ -4,7 +4,7 @@ import { BadRequest } from "../utils/Errors"
 
 class BoardService {
   async getAll(userEmail) {
-    return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("list")
   }
 
   async getById(id, userEmail) {
