@@ -69,6 +69,10 @@ export default new Vuex.Store({
         commit('setActive', res.data)
       })
     },
+    async deleteBoard({commit}, id){
+      await api.delete('boards/'+id)
+      router.push({name:"boards"})
+    },
     
     //#endregion
 
@@ -91,6 +95,10 @@ deleteList({commit, dispatch}, id){
   .then(res => {
     commit("deleteList", id)
   })
+},
+editList({dispatch}, list){
+  api.put(`lists/${list.id}`, list)
+  .then(l => {dispatch("getLists", list.boardId)})
 }
 
 

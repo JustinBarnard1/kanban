@@ -4,6 +4,7 @@
     <div v-if="board.title">
     <h1>{{board.title}}</h1>
     <h4>{{board.description}}</h4>
+    <button @click="deleteBoard" type="button" class="btn btn-danger">Delet</button>
     <form class="form-inline" @submit.prevent="addList">
       <div class="form-group">
         <label for=""></label>
@@ -50,6 +51,9 @@ export default {
     addList(){
       this.newList.boardId = this.$route.params.boardId
       this.$store.dispatch('addList', this.newList)
+    },
+    deleteBoard(){
+      this.$store.dispatch('deleteBoard', this.board.id)
     }
   }
 };
