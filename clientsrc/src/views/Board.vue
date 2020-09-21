@@ -14,6 +14,9 @@ export default {
       return this.$store.state.activeBoard;
     }
   },
-  props: ["boardId"]
+  props: ["boardId"],
+  mounted(){
+    this.$store.dispatch('getBoardByID', this.$route.params.boardId)
+  }
 };
 </script>
