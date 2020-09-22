@@ -13,6 +13,13 @@
         <ul>
           <task v-for="task in tasks" :key="task.id" :taskProp="task"/>
         </ul>
+        <form class="form-inline" @submit.prevent="addTask">
+      <div class="form-group">
+        <label for=""></label>
+        <input v-model="newTask.body" type="text" name="" id="" class="form-control" placeholder="Task" aria-describedby="helpId">
+        <button type="submit" class="btn btn-primary">Add New Task</button>
+      </div>
+    </form>
       </div>
     </div>
     </div>
@@ -25,7 +32,8 @@ props: ["listProp"],
 data(){
   return {
     editing: false,
-    list: {}
+    list: {},
+    newTask: {},
   }
 },
 methods: {
@@ -39,7 +47,11 @@ methods: {
   editFinish(){
     this.$store.dispatch('editList', this.list)
     this.editing = false
-  }
+  },
+  addTask(){
+    this.newTask.listId = this.listProp.id
+    this.$store.dispatch('addTask', this.newTask)
+  },
 },
 mounted(){
   this.$store.dispatch("getTasks", this.listProp.id);
