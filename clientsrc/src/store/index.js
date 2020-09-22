@@ -13,7 +13,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    tasks: {}
+    tasks: {},
+    comments: {}
   },
   mutations: {
     setUser(state, user) {
@@ -32,11 +33,16 @@ export default new Vuex.Store({
       state.lists = state.lists.filter(l => l.id != id)
     },
     setTasks(state, payload){
-      // state.tasks[tasks[0].listId]  = tasks
       Vue.set(state.tasks, payload.id, payload.data)
     },
     deleteTask(state, task){
       state.tasks[task.listId] = state.tasks[task.listId].filter(t => t.id != task.id)
+    },
+    setComments(state, payload){
+      Vue.set(state.comments, payload.id, payload.data)
+    },
+    deleteComment(state, comment){
+      state.comments[comment.taskId] = state.comments[comment.taskId].filter(c => c.id != comment.id)
     }
   },
   actions: {
@@ -131,11 +137,32 @@ deleteTask({commit, dispatch}, task){
 editTask({dispatch}, task){
   api.put(`tasks/${task.id}`, task)
   .then(t => {dispatch("getTasks", task.listId)})
-}
+},
     //#endregion
 
     //#region -- COMMENTS --
-    
+    getComments({commit, dispatch}, id){
+      api.get("tasks/" + id + "/comments")
+      .then(res => {
+        commit('setComments', {data:res.data, id})
+      })
+    },
+    addComment({commit, dispatch}, comment){
+      api.post('comments', comment)
+      .then(t => {
+        dispatch('getComments', comment.taskId)
+      })
+    },
+    deleteComment({commit, dispatch}, comment){
+      api.delete('comments/' + comment.id)
+      .then(res => {
+        commit("deleteComment", comment)
+      })
+    },
+    editComment({dispatch}, comment){
+      api.put(`comments/${comment.id}`, comment)
+      .then(t => {dispatch("getComments", comment.taskId)})
+    }   
     //#endregion
   }
 })

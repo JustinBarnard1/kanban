@@ -14,12 +14,12 @@
           <task v-for="task in tasks" :key="task.id" :taskProp="task"/>
         </ul>
         <form class="form-inline" @submit.prevent="addTask">
-      <div class="form-group">
-        <label for=""></label>
-        <input v-model="newTask.body" type="text" name="" id="" class="form-control" placeholder="Task" aria-describedby="helpId">
-        <button type="submit" class="btn btn-primary">Add New Task</button>
-      </div>
-    </form>
+          <div class="form-group">
+            <label for=""></label>
+            <input v-model="newTask.body" type="text" name="" id="" class="form-control" placeholder="Task" aria-describedby="helpId">
+            <button type="submit" class="btn btn-primary">Add New Task</button>
+          </div>
+        </form>
       </div>
     </div>
     </div>
