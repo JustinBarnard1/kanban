@@ -22,6 +22,7 @@
 </template>
 
 <script>
+// NOTE add drag and drop to change lists
 import Comment from '../components/Comment'
 export default {
 props: ["taskProp"],
