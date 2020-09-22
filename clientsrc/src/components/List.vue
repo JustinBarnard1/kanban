@@ -10,13 +10,16 @@
         <button  type="submit" class="btn btn-success">Done</button>
         </form>
         <i @click="deleteList">Delete List</i>
+        <ul>
+          <task v-for="task in tasks" :key="task.id" :taskProp="task"/>
+        </ul>
       </div>
     </div>
     </div>
 </template>
 
 <script>
-
+import Task from "../components/Task"
 export default {
 props: ["listProp"],
 data(){
@@ -38,11 +41,23 @@ methods: {
     this.editing = false
   }
 },
-
+mounted(){
+  this.$store.dispatch("getTasks", this.listProp.id);
+},
+computed:{
+  tasks(){
+    return this.$store.state.tasks[this.listProp.id]
+  }
+},
+  components: {
+    Task
+  },
 }
 
 </script>
 
 <style>
-
+  ul{
+    list-style: none;
+  }
 </style>
