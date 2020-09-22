@@ -1,6 +1,12 @@
 <template>
-  <div class="home">
-    <h1>This is your home page.</h1>
+  <div id="homePg" class="home bg-home text-light">
+    <h1>
+      <u>Welcome To The Board!</u>
+    </h1>
+    <h4 class="mt-3">Here you can create/organize</h4>
+    <h4>your tasks/responsibilities</h4>
+    <h4>into boards/repositories</h4>
+    <h4>Please provide authorization/login to continue.</h4>
   </div>
 </template>
 
@@ -13,10 +19,18 @@ export default {
   },
   computed: {},
   methods: {},
-  components: {}
+  components: {},
 };
 </script>
 
 
 <style scoped>
+#homePg {
+  flex-grow: 1;
+}
+.bg-home {
+  background-image: url("https://preview.redd.it/ws1q2v359xl31.png?auto=webp&s=96280224f17eca28d6b7a10ba1a3f352584b364f");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>
