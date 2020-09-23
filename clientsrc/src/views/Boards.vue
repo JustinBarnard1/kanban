@@ -8,40 +8,37 @@
       <button type="submit" class="btn text-light border">Create Board</button>
     </form>
     <button @click="myBoards = !myBoards" type="button" class="btn btn-primary">toggle boards</button>
-    <div class="row d-flex justify-content-center mt-3">
-      <div v-if="myBoards">
-      <div class="col-3 card mx-5 my-3 bg-warning" v-for="board in boards"  :key="board.id">
-        <div class="card-body">
-          <router-link :to="{name: 'board', params: {boardId: board.id}}">
-            <h1>{{board.title}}</h1>
-          </router-link>
-          <p class="card-text">{{board.description}}</p>
-          <i>
-            <p
-              class="card-text text-danger d-flex justify-content-end"
-              @click="deleteBoard(board.id)"
-            >Delete</p>
-          </i>
+    <div>
+      <div class="row d-flex justify-content-center mt-3" v-if="myBoards">
+        <div class="col-3 card mx-5 my-3 bg-warning" v-for="board in boards" :key="board.id">
+          <div class="card-body">
+            <router-link :to="{name: 'board', params: {boardId: board.id}}">
+              <h1>{{board.title}}</h1>
+            </router-link>
+            <p class="card-text">{{board.description}}</p>
+            <i>
+              <p
+                class="card-text text-danger d-flex justify-content-end"
+                @click="deleteBoard(board.id)"
+              >Delete</p>
+            </i>
+          </div>
         </div>
       </div>
-      </div>
-      <div v-else>
-      <div class="col-3 card mx-5 my-3 bg-warning" v-for="oboard in collabBoards" :key="oboard.id">
-        <div class="card-body">
-          <router-link :to="{name: 'board', params: {boardId: oboard.id}}">
-            <h1>{{oboard.title}}</h1>
-            <h2>{{oboard.creatorEmail}}</h2>
-          </router-link>
-          <p class="card-text">{{oboard.description}}</p>
-          <i>
-            <p
-              class="card-text text-danger d-flex justify-content-end"
-              @click="deleteBoard(oboard.id)"
-            >Delete</p>
-          </i>
+      <div v-else class="row d-flex justify-content-center mt-3">
+        <div
+          class="col-3 card mx-5 my-3 bg-warning"
+          v-for="oboard in collabBoards"
+          :key="oboard.id"
+        >
+          <div class="card-body">
+            <router-link :to="{name: 'board', params: {boardId: oboard.id}}">
+              <h1>{{oboard.title}}</h1>
+            </router-link>
+            <p class="card-text">{{oboard.description}}</p>
+            <h4>{{oboard.creatorEmail}}</h4>
+          </div>
         </div>
-      </div>
-      <p>potato</p>
       </div>
     </div>
   </div>
@@ -61,9 +58,8 @@ export default {
       newBoard: {
         title: "",
         description: "",
-        
       },
-      myBoards: true
+      myBoards: true,
     };
   },
   computed: {
@@ -73,9 +69,9 @@ export default {
     profile() {
       return this.$auth.userInfo;
     },
-    collabBoards(){
-      return this.$store.state.collabBoards
-    }
+    collabBoards() {
+      return this.$store.state.collabBoards;
+    },
   },
   methods: {
     addBoard() {

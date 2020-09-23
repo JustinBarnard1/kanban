@@ -33,7 +33,7 @@
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
         </form>
-        <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
+        <!-- <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
           <div class="form-group">
             <label for></label>
             <input
@@ -47,7 +47,7 @@
             />
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
-        </form>
+        </form>-->
       </div>
       <h1 v-else>Loading...</h1>
     </div>
