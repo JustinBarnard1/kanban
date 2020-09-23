@@ -3,8 +3,18 @@ import { BadRequest } from "../utils/Errors"
 
 
 class BoardService {
+  async getOthersById(id, email) {
+    let data = await dbContext.Boards.findOne({ _id: id, collabs:{$in: email} })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not have access to this board")
+    }
+    return data
+  }
+  async getCollab(email) {
+    return await dbContext.Boards.find({ collabs:{$in: email}  })
+  }
   async getAll(userEmail) {
-    return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("list")
+    return await dbContext.Boards.find({ creatorEmail: userEmail })
   }
 
   async getById(id, userEmail) {

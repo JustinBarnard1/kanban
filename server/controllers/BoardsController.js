@@ -13,11 +13,20 @@ export class BoardsController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
+      .get('/others', this.getCollabBoards )
       .get('/:id', this.getById)
+      .get('/others/:id', this.getOthersById)
       .get('/:id/lists', this.getLists)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
+  }
+  async getCollabBoards(req, res, next) {
+    try {
+      let data = await boardService.getCollab(req.userInfo.email)
+      return res.send(data)
+    }
+    catch (err) { next(err) };
   }
   async getLists(req, res, next) {
     try {
@@ -27,8 +36,6 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
-
-
   async getAll(req, res, next) {
     try {
       //only gets boards by user who is logged in
@@ -41,6 +48,12 @@ export class BoardsController extends BaseController {
   async getById(req, res, next) {
     try {
       let data = await boardService.getById(req.params.id, req.userInfo.email)
+      return res.send(data)
+    } catch (error) { next(error) }
+  }
+  async getOthersById(req, res, next) {
+    try {
+      let data = await boardService.getOthersById(req.params.id, req.userInfo.email)
       return res.send(data)
     } catch (error) { next(error) }
   }

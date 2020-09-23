@@ -33,6 +33,7 @@ export default {
   name: "boards",
   mounted() {
     this.$store.dispatch("getBoards");
+    this.$store.dispatch("getCollabBoards");
   },
   data() {
     return {
@@ -49,6 +50,9 @@ export default {
     profile() {
       return this.$auth.userInfo;
     },
+    collabBoards(){
+      return this.$store.state.boards
+    }
   },
   methods: {
     addBoard() {
