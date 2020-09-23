@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     board() {
-      //FIXME This does not work on page reload because the activeBoard is empty in the store
+      
       return this.$store.state.activeBoard;
     },
     lists(){
