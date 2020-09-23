@@ -33,7 +33,11 @@
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
         </form>
-        <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addCollab">
+        <form
+          v-if="user == board.creatorEmail"
+          class="form-inline d-flex justify-content-center mt-2"
+          @submit.prevent="addCollab"
+        >
           <div class="form-group">
             <label for></label>
             <input
@@ -47,7 +51,7 @@
             />
             <button type="submit" class="btn btn-primary">Add Collab</button>
           </div>
-        </form>-->
+        </form>
       </div>
       <h1 v-else>Loading...</h1>
     </div>
@@ -81,6 +85,9 @@ export default {
     },
     lists() {
       return this.$store.state.lists;
+    },
+    user() {
+      return this.$auth.userInfo.email;
     },
   },
   props: ["boardId"],
