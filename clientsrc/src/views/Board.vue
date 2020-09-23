@@ -33,19 +33,19 @@
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
         </form>
-        <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
+        <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addCollab">
           <div class="form-group">
             <label for></label>
             <input
-              v-model="newCollab.email"
+              v-model="newCollab"
               type="text"
               name
               id
               class="form-control"
-              placeholder="Title"
+              placeholder="Email"
               aria-describedby="helpId"
             />
-            <button type="submit" class="btn btn-primary">Add New List</button>
+            <button type="submit" class="btn btn-primary">Add Collab</button>
           </div>
         </form>
       </div>
@@ -70,6 +70,7 @@ export default {
   data() {
     return {
       newList: {},
+      newCollab: '',
       editing: false,
       eBoard: {},
     };
@@ -96,6 +97,13 @@ export default {
       this.newList.boardId = this.$route.params.boardId;
       this.$store.dispatch("addList", this.newList);
       this.newList = {};
+    },
+    addCollab() {
+      let newArr = this.board.collabs
+      newArr.push(this.newCollab)
+      console.log(newArr);
+      this.$store.dispatch("editBoard", {id:this.board.id, collabs: newArr});
+      this.newCollab = ''
     },
     async deleteBoard() {
       if (await as.confirmAction()) {
