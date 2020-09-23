@@ -14,7 +14,9 @@
             <h1>{{board.title}}</h1>
           </router-link>
           <p class="card-text">{{board.description}}</p>
-          <i><p class="card-text" @click="deleteBoard(board.id)">Delete</p></i>
+          <i>
+            <p class="card-text text-danger" @click="deleteBoard(board.id)">Delete</p>
+          </i>
         </div>
       </div>
     </div>

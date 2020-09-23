@@ -3,20 +3,20 @@
     <div>
       <div class="text-light mt-2" v-if="board.title">
         <h1 @click="editTitle" v-if="!editing">{{board.title}}</h1>
-        <form @submit.prevent="editFinish" v-else class="form-inline">
-            <div class="form-group">
-              <input
-                v-model="board.title"
-                type="text"
-                name
-                id
-                class="form-control"
-                placeholder
-                aria-describedby="helpId"
-              />
-            </div>
-            <button type="submit" class="btn btn-success">Done</button>
-          </form>
+        <form @submit.prevent="editFinish" v-else class="form-inline d-flex justify-content-center">
+          <div class="form-group">
+            <input
+              v-model="board.title"
+              type="text"
+              name
+              id
+              class="form-control"
+              placeholder
+              aria-describedby="helpId"
+            />
+          </div>
+          <button type="submit" class="btn btn-success">Done</button>
+        </form>
         <h4>{{board.description}}</h4>
         <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
           <div class="form-group">
@@ -55,7 +55,7 @@ export default {
     return {
       newList: {},
       editing: false,
-      eBoard: {}
+      eBoard: {},
     };
   },
   computed: {
