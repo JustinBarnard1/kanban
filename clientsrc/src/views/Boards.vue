@@ -1,13 +1,21 @@
 <template>
-  <div class="boards">
-    WELCOME TO THE BOARDS!!!
+  <div class="boards bg-boards container-fluid">
+    <h1 class="text-light my-3">Welcome {{profile.name}},</h1>
+    <h1 class="text-light" v-if="boards.length == 0">To Get Started, Create A Board.</h1>
     <form @submit.prevent="addBoard">
       <input type="text" placeholder="title" v-model="newBoard.title" required />
       <input type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit">Create Board</button>
     </form>
-    <div v-for="board in boards" :key="board.id">
-      <router-link :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link>
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-3 card mx-5 my-3" v-for="board in boards" :key="board.id">
+        <div class="card-body">
+          <router-link :to="{name: 'board', params: {boardId: board.id}}">
+            <h1>{{board.title}}</h1>
+          </router-link>
+          <p class="card-text">{{board.description}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,20 +30,31 @@ export default {
     return {
       newBoard: {
         title: "",
-        description: ""
-      }
+        description: "",
+      },
     };
   },
   computed: {
     boards() {
       return this.$store.state.boards;
-    }
+    },
+    profile() {
+      return this.$auth.userInfo;
+    },
   },
   methods: {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
-    }
-  }
+    },
+  },
 };
 </script>
+<style scoped>
+.bg-boards {
+  background-image: url("https://i.redd.it/jgrh8jdnbiu41.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-grow: 1;
+}
+</style>
