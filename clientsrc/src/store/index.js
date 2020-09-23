@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
+    collabBoards: [],
     activeBoard: {},
     lists: [],
     tasks: {},
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+    setCollabBoards(state, data) {
+      state.collabBoards = data
     },
     setActive(state, board){
       state.activeBoard = board
@@ -74,6 +78,12 @@ export default new Vuex.Store({
           commit('setBoards', res.data)
         })
     },
+    getCollabBoards({ commit, dispatch }) {
+      api.get('boards/others')
+        .then(res => {
+          commit('setCollabBoards', res.data)
+        })
+    },
     addBoard({ commit, dispatch }, boardData) {
       api.post('boards', boardData)
         .then(serverBoard => {
@@ -82,6 +92,12 @@ export default new Vuex.Store({
     },
     getBoardByID({commit}, id){
       api.get('boards/'+id)
+      .then(res => {
+        commit('setActive', res.data)
+      })
+    },
+    getCollabBoardByID({commit}, id){
+      api.get('boards/others/'+id)
       .then(res => {
         commit('setActive', res.data)
       })

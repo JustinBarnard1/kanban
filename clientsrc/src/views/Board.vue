@@ -33,6 +33,21 @@
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
         </form>
+        <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
+          <div class="form-group">
+            <label for></label>
+            <input
+              v-model="newCollab.email"
+              type="text"
+              name
+              id
+              class="form-control"
+              placeholder="Title"
+              aria-describedby="helpId"
+            />
+            <button type="submit" class="btn btn-primary">Add New List</button>
+          </div>
+        </form>
       </div>
       <h1 v-else>Loading...</h1>
     </div>
@@ -70,6 +85,7 @@ export default {
   props: ["boardId"],
   mounted() {
     this.$store.dispatch("getBoardByID", this.$route.params.boardId);
+    this.$store.dispatch("getCollabBoardByID", this.$route.params.boardId);
     this.$store.dispatch("getLists", this.$route.params.boardId);
   },
   components: {

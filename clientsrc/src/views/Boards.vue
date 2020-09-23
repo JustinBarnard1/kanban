@@ -7,8 +7,10 @@
       <input class="bg-light" type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit" class="btn text-light border">Create Board</button>
     </form>
+    <button @click="myBoards = !myBoards" type="button" class="btn btn-primary">toggle boards</button>
     <div class="row d-flex justify-content-center mt-3">
-      <div class="col-3 card mx-5 my-3 bg-warning" v-for="board in boards" :key="board.id">
+      <div v-if="myBoards">
+      <div class="col-3 card mx-5 my-3 bg-warning" v-for="board in boards"  :key="board.id">
         <div class="card-body">
           <router-link :to="{name: 'board', params: {boardId: board.id}}">
             <h1>{{board.title}}</h1>
@@ -21,6 +23,25 @@
             >Delete</p>
           </i>
         </div>
+      </div>
+      </div>
+      <div v-else>
+      <div class="col-3 card mx-5 my-3 bg-warning" v-for="oboard in collabBoards" :key="oboard.id">
+        <div class="card-body">
+          <router-link :to="{name: 'board', params: {boardId: oboard.id}}">
+            <h1>{{oboard.title}}</h1>
+            <h2>{{oboard.creatorEmail}}</h2>
+          </router-link>
+          <p class="card-text">{{oboard.description}}</p>
+          <i>
+            <p
+              class="card-text text-danger d-flex justify-content-end"
+              @click="deleteBoard(oboard.id)"
+            >Delete</p>
+          </i>
+        </div>
+      </div>
+      <p>potato</p>
       </div>
     </div>
   </div>
@@ -40,7 +61,9 @@ export default {
       newBoard: {
         title: "",
         description: "",
+        
       },
+      myBoards: true
     };
   },
   computed: {
@@ -51,7 +74,7 @@ export default {
       return this.$auth.userInfo;
     },
     collabBoards(){
-      return this.$store.state.boards
+      return this.$store.state.collabBoards
     }
   },
   methods: {
