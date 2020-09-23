@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-2">
+  <div class="mt-2" @dragstart="moveItem()">
     <li class="card bg-warning">
       <div class="col d-flex">
         <input
@@ -30,8 +30,12 @@
           <i class="ml-3 text-danger" @click="deleteTask">Delete</i>
         </small>
       </form>
+      <div v-if="commentsShow">
       <comment v-for="comment in comments" :key="comment.id" :commentProp="comment" />
-      <form class="form-inline" @submit.prevent="addComment">
+      </div>
+      <small v-else @click="commentsShow = !commentsShow"><i><p>Comments ({{comments.length}})</p></i></small>
+      <small v-if="commentsShow" @click="commentsShow = !commentsShow"><i><p>Hide</p></i></small>
+      <form v-if="commentsShow" class="form-inline" @submit.prevent="addComment">
         <div class="form-group">
           <label for></label>
           <input
@@ -60,6 +64,7 @@ export default {
       task: {},
       checked: this.taskProp.completed,
       newComment: {},
+      commentsShow: false
     };
   },
   mounted() {
@@ -93,6 +98,14 @@ export default {
       this.newComment.taskId = this.taskProp.id;
       this.$store.dispatch("addComment", this.newComment);
       this.newComment = {};
+    },
+    moveItem() {
+      //emit to parent first way
+      // this.$emit("dragstart");
+
+      //use events to set data for 2nd way
+      event.dataTransfer.setData("data", JSON.stringify(this.taskProp));
+      
     },
   },
   components: {

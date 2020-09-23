@@ -138,6 +138,13 @@ editTask({dispatch}, task){
   api.put(`tasks/${task.id}`, task)
   .then(t => {dispatch("getTasks", task.listId)})
 },
+moveTask({dispatch}, payload){
+  api.put(`tasks/${payload.task.id}`, {listId:payload.newListId})
+  .then(t => {
+    dispatch("getTasks", payload.newListId);
+    dispatch("getTasks", payload.task.listId)
+})
+},
     //#endregion
 
     //#region -- COMMENTS --

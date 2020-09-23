@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4 d-flex justify-content-center">
+  <div class="col-4 d-flex justify-content-center" @dragover.prevent @drop.prevent="moveTask()">
     <div class="row">
       <div id="listCard" class="card bg-secondary">
         <div class="card-body">
@@ -20,7 +20,7 @@
           </form>
           <i class="text-light" @click="deleteList">Delete List</i>
           <ul>
-            <task v-for="task in tasks" :key="task.id" :taskProp="task" />
+            <task draggable="true" v-for="task in tasks" :key="task.id" :taskProp="task" />
           </ul>
           <form class="form-inline" @submit.prevent="addTask">
             <div class="form-group mb-2">
@@ -70,6 +70,16 @@ export default {
       this.newTask.listId = this.listProp.id;
       this.$store.dispatch("addTask", this.newTask);
       this.newTask = {};
+    },
+    moveTask() {
+      let task = JSON.parse(event.dataTransfer.getData("data"));
+      let moveData = {
+        // oldListId: event.dataTransfer.getData("list"),
+        task,
+        newListId: this.listProp.id,
+      };
+      // console.log(moveData);
+      this.$store.dispatch("moveTask", moveData);
     },
   },
   mounted() {
