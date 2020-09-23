@@ -14,6 +14,7 @@
             <h1>{{board.title}}</h1>
           </router-link>
           <p class="card-text">{{board.description}}</p>
+          <i><p class="card-text" @click="deleteBoard(board.id)">Delete</p></i>
         </div>
       </div>
     </div>
@@ -46,6 +47,9 @@ export default {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
+    },
+    deleteBoard(id) {
+      this.$store.dispatch("deleteBoardMain", id);
     },
   },
 };
