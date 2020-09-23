@@ -1,10 +1,15 @@
 <template>
   <div class="mx-2 mb-2">
     <li class="offset-1 card">
-      <p v-if="!editing" @click="editBody">{{commentProp.body}}</p>
+      <p
+        class="d-flex justify-content-left p-2"
+        v-if="!editing"
+        @click="editBody"
+      >{{commentProp.body}}</p>
       <form @submit.prevent="editFinish" v-if="editing" class="form-inline">
         <div class="form-group">
           <input
+            style="max-width: 13em;"
             v-model="comment.body"
             type="text"
             name
@@ -15,10 +20,10 @@
           />
         </div>
         <button type="submit" class="btn btn-success">Done</button>
+        <small>
+          <i class="ml-3 text-danger" @click="deleteComment">Delete</i>
+        </small>
       </form>
-      <small>
-        <i class @click="deleteComment">Delete Comment</i>
-      </small>
     </li>
   </div>
 </template>

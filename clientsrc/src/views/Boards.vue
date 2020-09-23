@@ -15,7 +15,10 @@
           </router-link>
           <p class="card-text">{{board.description}}</p>
           <i>
-            <p class="card-text text-danger" @click="deleteBoard(board.id)">Delete</p>
+            <p
+              class="card-text text-danger d-flex justify-content-end"
+              @click="deleteBoard(board.id)"
+            >Delete</p>
           </i>
         </div>
       </div>
@@ -23,7 +26,9 @@
   </div>
 </template>
 
+
 <script>
+import as from "../services/alertsService";
 export default {
   name: "boards",
   mounted() {
@@ -50,8 +55,10 @@ export default {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
     },
-    deleteBoard(id) {
-      this.$store.dispatch("deleteBoardMain", id);
+    async deleteBoard(id) {
+      if (await as.confirmAction()) {
+        this.$store.dispatch("deleteBoardMain", id);
+      }
     },
   },
 };

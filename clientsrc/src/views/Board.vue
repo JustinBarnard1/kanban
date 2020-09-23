@@ -49,6 +49,7 @@
 
 <script>
 import List from "../components/List";
+import as from "../services/alertsService";
 export default {
   name: "board",
   data() {
@@ -80,8 +81,10 @@ export default {
       this.$store.dispatch("addList", this.newList);
       this.newList = {};
     },
-    deleteBoard() {
-      this.$store.dispatch("deleteBoard", this.board.id);
+    async deleteBoard() {
+      if (await as.confirmAction()) {
+        this.$store.dispatch("deleteBoard", this.board.id);
+      }
     },
     editTitle() {
       this.editing = true;

@@ -45,6 +45,7 @@
 
 <script>
 import Task from "../components/Task";
+import as from "../services/alertsService";
 export default {
   props: ["listProp"],
   data() {
@@ -55,8 +56,10 @@ export default {
     };
   },
   methods: {
-    deleteList() {
-      this.$store.dispatch("deleteList", this.listProp.id);
+    async deleteList() {
+      if (await as.confirmAction()) {
+        this.$store.dispatch("deleteList", this.listProp.id);
+      }
     },
     editTitle() {
       this.editing = true;
