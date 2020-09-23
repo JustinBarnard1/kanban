@@ -1,9 +1,9 @@
 <template>
   <div class="col-4 d-flex justify-content-center">
     <div class="row">
-      <div id="listCard" class="card">
+      <div id="listCard" class="card bg-secondary">
         <div class="card-body">
-          <h4 v-if="!editing" class="card-title" @click="editTitle">{{listProp.title}}</h4>
+          <h4 v-if="!editing" class="card-title text-light" @click="editTitle">{{listProp.title}}</h4>
           <form @submit.prevent="editFinish" v-else class="form-inline">
             <div class="form-group">
               <input
@@ -18,7 +18,7 @@
             </div>
             <button type="submit" class="btn btn-success">Done</button>
           </form>
-          <i @click="deleteList">Delete List</i>
+          <i class="text-light" @click="deleteList">Delete List</i>
           <ul>
             <task v-for="task in tasks" :key="task.id" :taskProp="task" />
           </ul>
@@ -88,7 +88,7 @@ export default {
 
 <style scoped>
 #listCard {
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }

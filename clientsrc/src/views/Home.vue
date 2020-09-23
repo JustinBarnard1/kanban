@@ -6,7 +6,16 @@
     <h4 class="mt-3">Here you can create/organize</h4>
     <h4>your tasks/responsibilities</h4>
     <h4>into boards/repositories</h4>
-    <h4>Please provide authorization/login to continue.</h4>
+    <h4 v-if="!$auth.isAuthenticated">Please provide authorization/login to continue.</h4>
+    <h4 v-if="$auth.isAuthenticated">You may proceed/continue.</h4>
+    <div class="row">
+      <router-link
+        v-if="$auth.isAuthenticated"
+        style="font-size: 32px"
+        class="offset-5 col-2 d-flex justify-content-center nav-link text-info"
+        :to="{ name: 'boards' }"
+      >Get Started</router-link>
+    </div>
   </div>
 </template>
 

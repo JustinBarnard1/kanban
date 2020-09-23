@@ -3,12 +3,12 @@
     <h1 class="text-light my-3">Welcome {{profile.name}},</h1>
     <h1 class="text-light" v-if="boards.length == 0">To Get Started, Create A Board.</h1>
     <form @submit.prevent="addBoard">
-      <input type="text" placeholder="title" v-model="newBoard.title" required />
-      <input type="text" placeholder="description" v-model="newBoard.description" />
-      <button type="submit">Create Board</button>
+      <input class="bg-light" type="text" placeholder="title" v-model="newBoard.title" required />
+      <input class="bg-light" type="text" placeholder="description" v-model="newBoard.description" />
+      <button type="submit" class="btn text-light border">Create Board</button>
     </form>
     <div class="row d-flex justify-content-center mt-3">
-      <div class="col-3 card mx-5 my-3" v-for="board in boards" :key="board.id">
+      <div class="col-3 card mx-5 my-3 bg-warning" v-for="board in boards" :key="board.id">
         <div class="card-body">
           <router-link :to="{name: 'board', params: {boardId: board.id}}">
             <h1>{{board.title}}</h1>

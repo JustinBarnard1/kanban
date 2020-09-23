@@ -1,6 +1,6 @@
 <template>
   <div class="mx-2 mb-2">
-    <li class="card">
+    <li class="offset-1 card">
       <p v-if="!editing" @click="editBody">{{commentProp.body}}</p>
       <form @submit.prevent="editFinish" v-if="editing" class="form-inline">
         <div class="form-group">

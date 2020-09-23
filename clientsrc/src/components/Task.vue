@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2">
-    <li class="card">
+    <li class="card bg-warning">
       <div class="col d-flex">
         <input
           v-if="!editing"

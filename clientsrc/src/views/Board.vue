@@ -4,7 +4,6 @@
       <div class="text-light mt-2" v-if="board.title">
         <h1>{{board.title}}</h1>
         <h4>{{board.description}}</h4>
-        <button @click="deleteBoard" type="button" class="btn btn-danger">Delet</button>
         <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
           <div class="form-group">
             <label for></label>
@@ -25,6 +24,11 @@
     </div>
     <div class="row mt-2">
       <list v-for="list in lists" :key="list.id" :listProp="list" />
+    </div>
+    <div class="row">
+      <div class="offset-10 col-2 mt-3">
+        <button @click="deleteBoard" type="button" class="btn btn-danger">Delet This Board</button>
+      </div>
     </div>
   </div>
 </template>
