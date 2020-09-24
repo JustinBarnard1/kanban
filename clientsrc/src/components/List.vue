@@ -10,7 +10,6 @@
                 v-model="list.title"
                 type="text"
                 name
-                id
                 class="form-control"
                 placeholder
                 aria-describedby="helpId"
@@ -29,7 +28,6 @@
                 v-model="newTask.body"
                 type="text"
                 name
-                id
                 class="form-control"
                 placeholder="Task"
                 aria-describedby="helpId"
@@ -71,7 +69,7 @@ export default {
     },
     addTask() {
       this.newTask.listId = this.listProp.id;
-      this.newTask.boardId = this.listProp.boardId
+      this.newTask.boardId = this.listProp.boardId;
       this.$store.dispatch("addTask", this.newTask);
       this.newTask = {};
     },

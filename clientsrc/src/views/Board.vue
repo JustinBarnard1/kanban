@@ -9,7 +9,6 @@
               v-model="board.title"
               type="text"
               name
-              id
               class="form-control"
               placeholder
               aria-describedby="helpId"
@@ -25,7 +24,6 @@
               v-model="newList.title"
               type="text"
               name
-              id
               class="form-control"
               placeholder="Title"
               aria-describedby="helpId"
@@ -56,7 +54,6 @@
               v-model="newCollab"
               type="email"
               name
-              id
               class="form-control"
               placeholder="Email"
               aria-describedby="helpId"
@@ -111,7 +108,7 @@ export default {
   props: ["boardId"],
   mounted() {
     this.$store.dispatch("getBoardByID", this.$route.params.boardId);
-    
+
     this.$store.dispatch("getLists", this.$route.params.boardId);
     this.$store.dispatch("joinRoom", "ships");
   },

@@ -9,7 +9,6 @@
           v-model="checked"
           type="checkbox"
           name
-          id
           autocomplete="off"
         />
         <p class="mt-2" v-if="!editing" @click="editBody">{{taskProp.body}}</p>
@@ -31,10 +30,18 @@
         </small>
       </form>
       <div v-if="commentsShow">
-      <comment v-for="comment in comments" :key="comment.id" :commentProp="comment" />
+        <comment v-for="comment in comments" :key="comment.id" :commentProp="comment" />
       </div>
-      <small v-else @click="commentsShow = !commentsShow"><i><p>Comments ({{commentsLength}})</p></i></small>
-      <small v-if="commentsShow" @click="commentsShow = !commentsShow"><i><p>Hide</p></i></small>
+      <small v-else @click="commentsShow = !commentsShow">
+        <i>
+          <p>Comments ({{commentsLength}})</p>
+        </i>
+      </small>
+      <small v-if="commentsShow" @click="commentsShow = !commentsShow">
+        <i>
+          <p>Hide</p>
+        </i>
+      </small>
       <form v-if="commentsShow" class="form-inline" @submit.prevent="addComment">
         <div class="form-group">
           <label for></label>
@@ -64,7 +71,7 @@ export default {
       task: {},
       checked: this.taskProp.completed,
       newComment: {},
-      commentsShow: false
+      commentsShow: false,
     };
   },
   mounted() {
@@ -74,12 +81,12 @@ export default {
     comments() {
       return this.$store.state.comments[this.taskProp.id];
     },
-    commentsLength(){
-       if(this.comments){
-         return this.comments.length
-       }
-       return 0
-    }
+    commentsLength() {
+      if (this.comments) {
+        return this.comments.length;
+      }
+      return 0;
+    },
   },
   methods: {
     deleteTask() {
@@ -102,8 +109,8 @@ export default {
     },
     addComment() {
       this.newComment.taskId = this.taskProp.id;
-      this.newComment.boardId = this.taskProp.boardId
-      this.newComment.listId = this.taskProp.listId
+      this.newComment.boardId = this.taskProp.boardId;
+      this.newComment.listId = this.taskProp.listId;
       this.$store.dispatch("addComment", this.newComment);
       this.newComment = {};
     },
@@ -113,7 +120,6 @@ export default {
 
       //use events to set data for 2nd way
       event.dataTransfer.setData("data", JSON.stringify(this.taskProp));
-      
     },
   },
   components: {
