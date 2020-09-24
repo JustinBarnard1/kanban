@@ -176,7 +176,7 @@ export default new Vuex.Store({
         .then(t => { dispatch("getTasks", task.listId) })
     },
     moveTask({ dispatch }, payload) {
-      api.put(`tasks/${payload.task.id}`, { listId: payload.newListId })
+      api.put(`tasks/move/${payload.task.id}`, { listId: payload.newListId, oldListId:payload.task.listId })
         .then(t => {
           dispatch("getTasks", payload.newListId);
           dispatch("getTasks", payload.task.listId)

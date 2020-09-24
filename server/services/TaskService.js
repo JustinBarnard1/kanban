@@ -66,6 +66,7 @@ class TaskService {
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this list");
     }
+    return data
   }
 
 

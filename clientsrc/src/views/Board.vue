@@ -110,7 +110,7 @@ export default {
     this.$store.dispatch("getBoardByID", this.$route.params.boardId);
 
     this.$store.dispatch("getLists", this.$route.params.boardId);
-    this.$store.dispatch("joinRoom", "ships");
+    this.$store.dispatch("joinRoom", `${this.$route.params.boardId}`);
   },
   components: {
     List,
