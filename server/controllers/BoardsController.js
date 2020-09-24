@@ -19,8 +19,8 @@ export class BoardsController extends BaseController {
       .get('/:id/lists', this.getLists)
       .post('', this.create)
       .put('/:id', this.edit)
+      .delete('/collab/:id', this.removeSelf)
       .delete('/:id', this.delete)
-      .delete('/:id/collab', this.removeSelf)
   }
   async removeSelf(req, res, next) {
     try {
