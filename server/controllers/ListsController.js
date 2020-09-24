@@ -13,6 +13,7 @@ export class ListsController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get('/:id/tasks', this.getAll)
+      .get('/:id', this.getById)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)

@@ -7,13 +7,13 @@ class ListService {
     return await dbContext.Lists.find({ boardId: id })
   }
 
-  // async getById(id, userEmail) {
-  //   let data = await dbContext.Lists.findOne({ _id: id })
-  //   if (!data) {
-  //     throw new BadRequest("Invalid ID or you do not own this list")
-  //   }
-  //   return data
-  // }
+  async getById(id, userEmail) {
+    let data = await dbContext.Lists.findOne({ _id: id }).populate("boardId")
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this list")
+    }
+    return data
+  }
 
   async create(rawData) {
     let data = await dbContext.Lists.create(rawData)
@@ -29,7 +29,21 @@ class ListService {
   }
 
   async delete(id, userEmail) {
-    let data = await dbContext.Lists.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+    let list = await this.getById(id)
+    let data = null
+    if(list.boardId.collabs.includes(userEmail)){
+      data = await dbContext.Lists.findOneAndRemove({ _id: id});
+
+    }
+    else if(list.creatorEmail == userEmail){
+      data = await dbContext.Lists.findOneAndRemove({ _id: id});
+
+    }
+    else if(list.boardId.creatorEmail == userEmail){
+      data = await dbContext.Lists.findOneAndRemove({ _id: id});
+
+    }
+    // list.creatorEmail == userEmail
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this list");
     }
