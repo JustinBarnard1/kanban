@@ -31,7 +31,7 @@ class BoardService {
   }
 
   async getById(id, userEmail) {
-    let data = await dbContext.Boards.findOne({$or:[{ _id: id, creatorEmail: userEmail }, { _id: id, collabs:{$in: email} }]})
+    let data = await dbContext.Boards.findOne({$or:[{ _id: id, creatorEmail: userEmail }, { _id: id, collabs:{$in: userEmail} }]})
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
