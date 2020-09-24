@@ -10,9 +10,11 @@ export const socketService = {
         console.log(data.message + "sockets on")
       })
       //registers additional listeners for client side here
-      socket.on("newShip", data => {
-        debugger
-        console.log(data)
+      socket.on("updateBoards", data => {
+        
+       
+        dispatch("getBoards")
+        dispatch("getCollabBoards")
       })
 
       socket.on("deleteShip", data => {

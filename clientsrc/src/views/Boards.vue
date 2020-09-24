@@ -52,7 +52,7 @@ export default {
   mounted() {
     this.$store.dispatch("getBoards");
     this.$store.dispatch("getCollabBoards");
-    this.$store.dispatch("joinRoom", "ships");
+    this.$store.dispatch("joinRoom", "boards");
   },
   data() {
     return {

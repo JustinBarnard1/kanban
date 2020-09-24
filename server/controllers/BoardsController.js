@@ -73,7 +73,7 @@ export class BoardsController extends BaseController {
     try {
       req.body.creatorEmail = req.userInfo.email
       let data = await boardService.create(req.body)
-      socketService.messageRoom("ships", "newShip", data)
+      socketService.messageRoom("boards", "updateBoards")
       return res.status(201).send(data)
     } catch (error) { next(error) }
   }
@@ -81,6 +81,7 @@ export class BoardsController extends BaseController {
   async edit(req, res, next) {
     try {
       let data = await boardService.edit(req.params.id, req.userInfo.email, req.body)
+      socketService.messageRoom("boards", "updateBoards")
       return res.send(data)
     } catch (error) { next(error) }
   }
@@ -88,6 +89,7 @@ export class BoardsController extends BaseController {
   async delete(req, res, next) {
     try {
       await boardService.delete(req.params.id, req.userInfo.email)
+      socketService.messageRoom("boards", "updateBoards")
       return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }
