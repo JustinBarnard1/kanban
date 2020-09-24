@@ -3,6 +3,18 @@ import { BadRequest } from "../utils/Errors"
 
 
 class BoardService {
+  async removeSelf(id, email) {
+    let board = await dbContext.Boards.findOne({_id: id})
+    // @ts-ignore
+    let update = board
+    update.collabs = board.collabs.filter(c => c != email)
+  
+    let data = await dbContext.Boards.findOneAndUpdate({ _id: id}, update, { new: true })
+    if (!data) {
+      throw new BadRequest("WHY");
+    }
+    return data
+  }
   async getOthersById(id, email) {
     let data = await dbContext.Boards.findOne({ _id: id, collabs:{$in: email} })
     if (!data) {
