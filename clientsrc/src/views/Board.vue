@@ -117,9 +117,6 @@ export default {
       this.newList = {};
     },
     addCollab() {
-        console.error("your string is empty")
-        return
-      
       let newArr = this.board.collabs;
       newArr.push(this.newCollab);
       this.$store.dispatch("editBoard", { id: this.board.id, collabs: newArr });

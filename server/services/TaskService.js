@@ -7,13 +7,13 @@ class TaskService {
     return await dbContext.Tasks.find({ listId: id })
   }
 
-  // async getById(id, userEmail) {
-  //   let data = await dbContext.Tasks.findOne({ _id: id, creatorEmail: userEmail })
-  //   if (!data) {
-  //     throw new BadRequest("Invalid ID or you do not own this task")
-  //   }
-  //   return data
-  // }
+  async getById(id) {
+    let data = await dbContext.Tasks.findOne({ _id: id})
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not own this task")
+    }
+    return data
+  }
 
   async create(rawData) {
     let data = await dbContext.Tasks.create(rawData)
@@ -21,19 +21,53 @@ class TaskService {
   }
 
   async edit(id, userEmail, update) {
-    let data = await dbContext.Tasks.findOneAndUpdate({ _id: id, creatorEmail: userEmail }, update, { new: true })
+    let list = await this.getById(id)
+    let data = null
+    // @ts-ignore
+    if(list.boardId.collabs.includes(userEmail)){
+      data = await dbContext.Tasks.findOneAndUpdate({ _id: id}, update, { new: true })
+
+    }
+    // @ts-ignore
+    else if(list.creatorEmail == userEmail){
+      data = await dbContext.Tasks.findOneAndUpdate({ _id: id}, update, { new: true })
+
+    }
+    // @ts-ignore
+    else if(list.boardId.creatorEmail == userEmail){
+      data = await dbContext.Tasks.findOneAndUpdate({ _id: id}, update, { new: true })
+
+    }
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this task");
+      throw new BadRequest("Invalid ID or you do not own this list");
     }
     return data;
   }
 
   async delete(id, userEmail) {
-    let data = await dbContext.Tasks.findOneAndRemove({ _id: id, creatorEmail: userEmail });
+    let list = await this.getById(id)
+    let data = null
+    // @ts-ignore
+    if(list.boardId.collabs.includes(userEmail)){
+      data = await dbContext.Tasks.findOneAndRemove({ _id: id});
+
+    }
+    // @ts-ignore
+    else if(list.creatorEmail == userEmail){
+      data = await dbContext.Tasks.findOneAndRemove({ _id: id});
+
+    }
+    // @ts-ignore
+    else if(list.boardId.creatorEmail == userEmail){
+      data = await dbContext.Tasks.findOneAndRemove({ _id: id});
+
+    }
+    
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this task");
+      throw new BadRequest("Invalid ID or you do not own this list");
     }
   }
+
 
 }
 
