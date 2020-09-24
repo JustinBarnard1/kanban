@@ -37,7 +37,7 @@
       <div class="col-4 mt-2">
         <div class="collabList">
           <div class="card bg-warning pl-4">
-            <li class="text-left" v-for="collab in collabs" :key="collab">{{collab}}</li>
+            <li class="text-left" v-for="collab in collabs" :key="collab" @click="activeCollab = collab">{{collab}}</li>
           </div>
         </div>
         <form
@@ -49,15 +49,15 @@
             <label for></label>
             <input
               v-model="newCollab"
-              type="text"
+              type="email"
               name
               id
               class="form-control"
               placeholder="Email"
               aria-describedby="helpId"
             />
-            <button type="submit" class="btn btn-primary">Add Collab</button>
-            <button type class="btn btn-danger">Remove</button>
+            <button :class="{disabled:!newCollab}"  type="submit" class="btn btn-primary">Add Collab</button>
+            <button type="button" class="btn btn-danger" @click="removeCollab">Remove</button>
           </div>
         </form>
       </div>
@@ -84,6 +84,7 @@ export default {
       newCollab: "",
       editing: false,
       eBoard: {},
+      activeCollab:""
     };
   },
   computed: {
@@ -116,9 +117,11 @@ export default {
       this.newList = {};
     },
     addCollab() {
+        console.error("your string is empty")
+        return
+      
       let newArr = this.board.collabs;
       newArr.push(this.newCollab);
-      console.log(newArr);
       this.$store.dispatch("editBoard", { id: this.board.id, collabs: newArr });
       this.newCollab = "";
     },
@@ -135,6 +138,12 @@ export default {
       this.$store.dispatch("editBoard", this.eBoard);
       this.editing = false;
     },
+    removeCollab(){
+      let board = this.board
+      board.collabs = board.collabs.filter(c => c != this.activeCollab)
+      console.log(board)
+      this.$store.dispatch("editBoard", board);
+    }
   },
 };
 </script>
