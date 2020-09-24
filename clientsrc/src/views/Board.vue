@@ -1,7 +1,7 @@
 <template>
   <div class="board bg-board container-fluid">
-    <div>
-      <div class="text-light mt-2" v-if="board.title">
+    <div class="row">
+      <div class="offset-4 col-4 text-light mt-2" v-if="board.title">
         <h1 @click="editTitle" v-if="!editing">{{board.title}}</h1>
         <form @submit.prevent="editFinish" v-else class="form-inline d-flex justify-content-center">
           <div class="form-group">
@@ -17,7 +17,7 @@
           </div>
           <button type="submit" class="btn btn-success">Done</button>
         </form>
-        <h4>{{board.description}}</h4>
+        <h3>{{board.description}}</h3>
         <form class="form-inline d-flex justify-content-center mt-2" @submit.prevent="addList">
           <div class="form-group">
             <label for></label>
@@ -33,6 +33,13 @@
             <button type="submit" class="btn btn-primary">Add New List</button>
           </div>
         </form>
+      </div>
+      <div class="col-4 mt-2">
+        <div class="collabList">
+          <div class="card bg-warning pl-4">
+            <li class="text-left" v-for="collab in collabs" :key="collab">{{collab}}</li>
+          </div>
+        </div>
         <form
           v-if="user == board.creatorEmail"
           class="form-inline d-flex justify-content-center mt-2"
@@ -50,10 +57,10 @@
               aria-describedby="helpId"
             />
             <button type="submit" class="btn btn-primary">Add Collab</button>
+            <button type class="btn btn-danger">Remove</button>
           </div>
         </form>
       </div>
-      <h1 v-else>Loading...</h1>
     </div>
     <div class="row mt-2">
       <list v-for="list in lists" :key="list.id" :listProp="list" />
@@ -88,6 +95,9 @@ export default {
     },
     user() {
       return this.$auth.userInfo.email;
+    },
+    collabs() {
+      return this.$store.state.activeBoard.collabs;
     },
   },
   props: ["boardId"],
@@ -134,5 +144,13 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   flex-grow: 1;
+}
+.collabList {
+  max-height: 12vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+li {
+  list-style: none;
 }
 </style>
