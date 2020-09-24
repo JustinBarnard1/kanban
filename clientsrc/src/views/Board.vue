@@ -113,6 +113,7 @@ export default {
     this.$store.dispatch("getBoardByID", this.$route.params.boardId);
     this.$store.dispatch("getCollabBoardByID", this.$route.params.boardId);
     this.$store.dispatch("getLists", this.$route.params.boardId);
+    this.$store.dispatch("joinRoom", "ships");
   },
   components: {
     List,

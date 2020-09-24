@@ -18,6 +18,7 @@ export default {
     } catch (err) {
       this.$router.push({ name: "home" });
     }
+    this.$store.dispatch("initializeSocket");
   },
   components: {
     Navbar,

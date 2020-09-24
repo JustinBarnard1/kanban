@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
 import { api } from "./AxiosService"
+import { socketService } from "../services/socketService"
 
 Vue.use(Vuex)
 
@@ -207,5 +208,8 @@ export default new Vuex.Store({
         .then(t => { dispatch("getComments", comment.taskId) })
     }
     //#endregion
+  },
+  modules: {
+    socketService
   }
 })

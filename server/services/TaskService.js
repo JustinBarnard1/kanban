@@ -8,7 +8,7 @@ class TaskService {
   }
 
   async getById(id) {
-    let data = await dbContext.Tasks.findOne({ _id: id})
+    let data = await dbContext.Tasks.findOne({ _id: id}).populate("boardId")
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this task")
     }

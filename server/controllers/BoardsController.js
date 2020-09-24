@@ -30,13 +30,6 @@ export class BoardsController extends BaseController {
       next(err)
     }
   }
-  async getCollabBoards(req, res, next) {
-    try {
-      let data = await boardService.getCollab(req.userInfo.email)
-      return res.send(data)
-    }
-    catch (err) { next(err) };
-  }
   async getLists(req, res, next) {
     try {
       let data = await listService.getAll(req.params.id)
@@ -45,6 +38,14 @@ export class BoardsController extends BaseController {
       next(error)
     }
   }
+  async getCollabBoards(req, res, next) {
+    try {
+      let data = await boardService.getCollab(req.userInfo.email)
+      return res.send(data)
+    }
+    catch (err) { next(err) };
+  }
+
   async getAll(req, res, next) {
     try {
       //only gets boards by user who is logged in
