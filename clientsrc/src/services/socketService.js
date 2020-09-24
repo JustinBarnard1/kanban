@@ -11,7 +11,8 @@ export const socketService = {
       })
       //registers additional listeners for client side here
       socket.on("newShip", data => {
-        commit("addShip", data)
+        debugger
+        console.log(data)
       })
 
       socket.on("deleteShip", data => {
@@ -19,10 +20,11 @@ export const socketService = {
       })
     },
     joinRoom({ commit, dispatch }, roomName) {
-      socket.emit("dispatch", { action: "joinRoom", data: roomName })
+      socket.emit("dispatch", { action: "JoinRoom", data: roomName })
+     console.log(roomName);
     },
     leaveRoom({ commit, dispatch }, roomName) {
-      socket.emit("disconnect", { action: "leaveRoom", data: roomName })
+      socket.emit("disconnect", { action: "LeaveRoom", data: roomName })
     }
   }
 }

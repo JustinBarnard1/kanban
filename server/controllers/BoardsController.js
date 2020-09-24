@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { boardService } from '../services/BoardService'
 import { listService } from "../services/ListService";
+import socketService from "../services/SocketService";
 
 
 
@@ -72,6 +73,7 @@ export class BoardsController extends BaseController {
     try {
       req.body.creatorEmail = req.userInfo.email
       let data = await boardService.create(req.body)
+      socketService.messageRoom("ships", "newShip", data)
       return res.status(201).send(data)
     } catch (error) { next(error) }
   }
