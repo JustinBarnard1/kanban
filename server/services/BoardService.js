@@ -7,6 +7,7 @@ class BoardService {
     let board = await dbContext.Boards.findOne({_id: id})
     // @ts-ignore
     let update = board
+    // @ts-ignore
     update.collabs = board.collabs.filter(c => c != email)
   
     let data = await dbContext.Boards.findOneAndUpdate({ _id: id}, update, { new: true })
