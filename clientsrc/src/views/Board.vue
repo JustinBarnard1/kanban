@@ -35,7 +35,7 @@
         </form>
       </div>
       <div class="col-4 mt-2">
-        <div class="collabList">
+        <div class="collabList bg-warning">
           <div class="card bg-warning pl-4">
             <li
               class="text-left"
@@ -91,6 +91,7 @@ export default {
       editing: false,
       eBoard: {},
       activeCollab: "",
+      displayToggle: false,
     };
   },
   computed: {
@@ -161,7 +162,7 @@ export default {
   flex-grow: 1;
 }
 .collabList {
-  max-height: 12vh;
+  height: 12vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
