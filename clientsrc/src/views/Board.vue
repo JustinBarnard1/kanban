@@ -37,7 +37,12 @@
       <div class="col-4 mt-2">
         <div class="collabList">
           <div class="card bg-warning pl-4">
-            <li class="text-left" v-for="collab in collabs" :key="collab" @click="activeCollab = collab">{{collab}}</li>
+            <li
+              class="text-left"
+              v-for="collab in collabs"
+              :key="collab"
+              @click="activeCollab = collab"
+            >{{collab}}</li>
           </div>
         </div>
         <form
@@ -56,10 +61,11 @@
               placeholder="Email"
               aria-describedby="helpId"
             />
-            <button :class="{disabled:!newCollab}"  type="submit" class="btn btn-primary">Add Collab</button>
+            <button :class="{disabled:!newCollab}" type="submit" class="btn btn-primary">Add Collab</button>
             <button type="button" class="btn btn-danger" @click="removeCollab">Remove</button>
           </div>
         </form>
+        <button v-else type="button" class="btn btn-danger" @click="removeSelfCollab">Remove</button>
       </div>
     </div>
     <div class="row mt-2">
@@ -84,7 +90,7 @@ export default {
       newCollab: "",
       editing: false,
       eBoard: {},
-      activeCollab:""
+      activeCollab: "",
     };
   },
   computed: {
@@ -135,12 +141,15 @@ export default {
       this.$store.dispatch("editBoard", this.eBoard);
       this.editing = false;
     },
-    removeCollab(){
-      let board = this.board
-      board.collabs = board.collabs.filter(c => c != this.activeCollab)
-      console.log(board)
+    removeCollab() {
+      let board = this.board;
+      board.collabs = board.collabs.filter((c) => c != this.activeCollab);
+      console.log(board);
       this.$store.dispatch("editBoard", board);
-    }
+    },
+    removeSelfCollab() {
+      this.$store.dispatch("removeSelfCollab", this.board.id);
+    },
   },
 };
 </script>

@@ -13,19 +13,19 @@ export class BoardsController extends BaseController {
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
-      .get('/others', this.getCollabBoards )
+      .get('/others', this.getCollabBoards)
       .get('/:id', this.getById)
       .get('/others/:id', this.getOthersById)
       .get('/:id/lists', this.getLists)
       .post('', this.create)
       .put('/:id', this.edit)
-      .delete('/collab/:id', this.removeSelf)
+      .put('/collab/:id', this.removeSelf)
       .delete('/:id', this.delete)
   }
   async removeSelf(req, res, next) {
     try {
       let data = await boardService.removeSelf(req.params.id, req.userInfo.email)
-       return res.send(data)
+      return res.send(data)
     } catch (err) {
       next(err)
     }
