@@ -20,6 +20,15 @@ export class BoardsController extends BaseController {
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
+      .delete('/:id/collab', this.removeSelf)
+  }
+  async removeSelf(req, res, next) {
+    try {
+      let data = await boardService.removeSelf(req.params.id, req.userInfo.email)
+       return res.send(data)
+    } catch (err) {
+      next(err)
+    }
   }
   async getCollabBoards(req, res, next) {
     try {
