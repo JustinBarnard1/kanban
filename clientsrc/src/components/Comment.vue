@@ -13,7 +13,6 @@
             v-model="comment.body"
             type="text"
             name
-            id
             class="form-control"
             placeholder
             aria-describedby="helpId"
