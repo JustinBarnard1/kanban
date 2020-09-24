@@ -71,6 +71,7 @@ export default {
     },
     addTask() {
       this.newTask.listId = this.listProp.id;
+      this.newTask.boardId = this.listProp.boardId
       this.$store.dispatch("addTask", this.newTask);
       this.newTask = {};
     },

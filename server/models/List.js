@@ -24,7 +24,7 @@ List.pre('deleteMany', function (next) {
   Promise.all([
     //something like...
     // @ts-ignore
-    dbContext.Tasks.deleteMany({ listId: this._conditions._id }),
+    dbContext.Tasks.deleteMany({ boardId: this._conditions.boardId }),
   ])
     .then(() => next())
     .catch(err => next(err))

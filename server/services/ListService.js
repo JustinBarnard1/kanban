@@ -7,6 +7,7 @@ class ListService {
     return await dbContext.Lists.find({ boardId: id })
   }
 
+  // @ts-ignore
   async getById(id, userEmail) {
     let data = await dbContext.Lists.findOne({ _id: id }).populate("boardId")
     if (!data) {
@@ -31,19 +32,22 @@ class ListService {
   async delete(id, userEmail) {
     let list = await this.getById(id)
     let data = null
+    // @ts-ignore
     if(list.boardId.collabs.includes(userEmail)){
       data = await dbContext.Lists.findOneAndRemove({ _id: id});
 
     }
+    // @ts-ignore
     else if(list.creatorEmail == userEmail){
       data = await dbContext.Lists.findOneAndRemove({ _id: id});
 
     }
+    // @ts-ignore
     else if(list.boardId.creatorEmail == userEmail){
       data = await dbContext.Lists.findOneAndRemove({ _id: id});
 
     }
-    // list.creatorEmail == userEmail
+    
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this list");
     }
