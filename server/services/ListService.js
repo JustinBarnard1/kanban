@@ -30,10 +30,6 @@ class ListService {
 
     }
     // @ts-ignore
-    else if(list.creatorEmail == userEmail){
-      data = await dbContext.Lists.findOneAndUpdate({ _id: id}, update, { new: true })
-
-    }
     // @ts-ignore
     else if(list.boardId.creatorEmail == userEmail){
       data = await dbContext.Lists.findOneAndUpdate({ _id: id}, update, { new: true })
@@ -50,11 +46,6 @@ class ListService {
     let data = null
     // @ts-ignore
     if(list.boardId.collabs.includes(userEmail)){
-      data = await dbContext.Lists.findOneAndRemove({ _id: id});
-
-    }
-    // @ts-ignore
-    else if(list.creatorEmail == userEmail){
       data = await dbContext.Lists.findOneAndRemove({ _id: id});
 
     }
