@@ -3,14 +3,16 @@ import { dbContext } from "../db/DbContext"
 let Schema = mongoose.Schema
 let ObjectId = Schema.Types.ObjectId
 
-const List = new Schema({
-  title: { type: String, required: true },
+const Task = new Schema({
+  completed: { type: Boolean, default: false },
   creatorEmail: { type: String, required: true },
+  listId: { type: ObjectId, ref: 'List', required: true },
+  body: {type: String, required: true},
   boardId: { type: ObjectId, ref: 'Board', required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
 
-List.virtual("creator",
+Task.virtual("creator",
   {
     localField: "creatorEmail",
     ref: "Profile",
@@ -19,26 +21,26 @@ List.virtual("creator",
   })
 
 //CASCADE ON DELETE
-List.pre('deleteMany', function (next) {
-  //lets find all the lists and remove them
+Task.pre('deleteMany', function (next) {
+  //lets find all the tasks and remove them
   Promise.all([
     //something like...
     // @ts-ignore
-    dbContext.Tasks.deleteMany({ boardId: this._conditions.boardId }),
+    dbContext.Comments.deleteMany({$or: [{ boardId: this._conditions.boardId }, { listId: this._conditions.listId }]}),
   ])
     .then(() => next())
     .catch(err => next(err))
 })
 
 //CASCADE ON DELETE
-List.pre('findOneAndRemove', function (next) {
-  //lets find all the lists and remove them
+Task.pre('findOneAndRemove', function (next) {
+  //lets find all the tasks and remove them
   Promise.all([
     // @ts-ignore
-    dbContext.Tasks.deleteMany({ listId: this._conditions._id })
+    dbContext.Comments.deleteMany({ taskId: this._conditions._id })
   ])
     .then(() => next())
     .catch(err => next(err))
 })
 
-export default List
+export default Task

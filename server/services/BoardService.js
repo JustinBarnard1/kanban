@@ -3,12 +3,35 @@ import { BadRequest } from "../utils/Errors"
 
 
 class BoardService {
+  async removeSelf(id, email) {
+    let board = await dbContext.Boards.findOne({_id: id})
+    // @ts-ignore
+    let update = board
+    // @ts-ignore
+    update.collabs = board.collabs.filter(c => c != email)
+  
+    let data = await dbContext.Boards.findOneAndUpdate({ _id: id}, update, { new: true })
+    if (!data) {
+      throw new BadRequest("WHY");
+    }
+    return data
+  }
+  async getOthersById(id, email) {
+    let data = await dbContext.Boards.findOne({ _id: id, collabs:{$in: email} })
+    if (!data) {
+      throw new BadRequest("Invalid ID or you do not have access to this board")
+    }
+    return data
+  }
+  async getCollab(email) {
+    return await dbContext.Boards.find({ collabs:{$in: email}  })
+  }
   async getAll(userEmail) {
-    return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("creator", "name picture")
+    return await dbContext.Boards.find({ creatorEmail: userEmail })
   }
 
   async getById(id, userEmail) {
-    let data = await dbContext.Boards.findOne({ _id: id, creatorEmail: userEmail })
+    let data = await dbContext.Boards.findOne({$or:[{ _id: id, creatorEmail: userEmail }, { _id: id, collabs:{$in: userEmail} }]})
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
