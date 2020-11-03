@@ -1,5 +1,6 @@
 <template>
-  <div id="homePg" class="home bg-home text-light">
+  <div id="homePg" class="home bg-home text-light container-fluid">
+    <div class="d-none d-md-block">
     <h1>
       <u>Welcome To The Board!</u>
     </h1>
@@ -15,6 +16,10 @@
         class="offset-5 col-2 d-flex justify-content-center nav-link text-info"
         :to="{ name: 'boards' }"
       >Get Started</router-link>
+    </div>
+    </div>
+    <div class="d-block d-md-none">
+      <h1 class="text-dark">Mobile version coming soon!</h1>
     </div>
   </div>
 </template>

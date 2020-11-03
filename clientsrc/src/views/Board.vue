@@ -69,7 +69,7 @@
       <list v-for="list in lists" :key="list.id" :listProp="list" />
     </div>
     <div class="row">
-      <div class="offset-10 col-2 mt-3">
+      <div class="offset-9 col-2 mt-3">
         <button @click="deleteBoard" type="button" class="btn btn-danger">Delete This Board</button>
       </div>
     </div>
