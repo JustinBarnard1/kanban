@@ -70,7 +70,7 @@
     </div>
     <div class="row">
       <div class="offset-10 col-2 mt-3">
-        <button @click="deleteBoard" type="button" class="btn btn-danger">Delet This Board</button>
+        <button @click="deleteBoard" type="button" class="btn btn-danger">Delete This Board</button>
       </div>
     </div>
   </div>
