@@ -20,7 +20,6 @@ Board.virtual("creator",
 
 // CASCADE ON DELETE
 Board.pre('findOneAndRemove', function (next) {
-  //lets find all the lists and remove them
   Promise.all([
     // @ts-ignore
     dbContext.Lists.deleteMany({ boardId: this._conditions._id })

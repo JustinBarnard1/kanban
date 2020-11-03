@@ -17,12 +17,10 @@ List.virtual("creator",
     foreignField: "email",
     justOne: true
   })
-
-//CASCADE ON DELETE
 List.pre('deleteMany', function (next) {
-  //lets find all the lists and remove them
+
   Promise.all([
-    //something like...
+
     // @ts-ignore
     dbContext.Tasks.deleteMany({ boardId: this._conditions.boardId }),
   ])
@@ -32,7 +30,6 @@ List.pre('deleteMany', function (next) {
 
 //CASCADE ON DELETE
 List.pre('findOneAndRemove', function (next) {
-  //lets find all the lists and remove them
   Promise.all([
     // @ts-ignore
     dbContext.Tasks.deleteMany({ listId: this._conditions._id })
