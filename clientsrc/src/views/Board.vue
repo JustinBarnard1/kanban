@@ -143,7 +143,7 @@ export default {
     removeCollab() {
       let board = this.board;
       board.collabs = board.collabs.filter((c) => c != this.activeCollab);
-      console.log(board);
+
       this.$store.dispatch("editBoard", board);
     },
     removeSelfCollab() {

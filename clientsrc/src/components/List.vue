@@ -80,7 +80,6 @@ export default {
         task,
         newListId: this.listProp.id,
       };
-      // console.log(moveData);
       this.$store.dispatch("moveTask", moveData);
     },
   },
